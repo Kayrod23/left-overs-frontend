@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex: 1;
+    background-color: white;
+    align-Items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.recipeName {
+    margin-top: 10%;
+}
+
+.recipeSteps {
+    font-size: 20;
+}
+
+.form {
+    margin: 100px;
+}
