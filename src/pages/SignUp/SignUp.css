@@ -1,0 +1,20 @@
+.signup {
+    background-color: green;
+    width: 100%;
+    flex: 1;
+    align-Items: center;
+    text-Align: center;
+    justify-Content: center;
+    padding-top: 120px; 
+    height: 100vh;
+}
+
+.signUpForm {
+    background-color: white;
+    margin-right: 30%;
+    margin-left: 30%;
+    height: 50%;
+    border: 1px black solid; 
+    border-radius: 5px;
+    padding: 5%;
+}

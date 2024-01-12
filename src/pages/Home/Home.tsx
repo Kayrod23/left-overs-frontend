@@ -89,7 +89,7 @@ function Home () {
     <div className="container">
       {/* <NavBar/> */}
       <div>
-         <form className="form" onSubmit={takeImageInputAndSendToOpenAI}>
+         <form className="fileForm" onSubmit={takeImageInputAndSendToOpenAI}>
           {/* <label htmlFor='file'>Image</label> */}
           <input id="file" type="file" accept="image/*" name="image"/>
           <button type="submit">Submit</button>

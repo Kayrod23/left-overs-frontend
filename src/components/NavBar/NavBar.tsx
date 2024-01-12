@@ -8,8 +8,8 @@ function NavBar() {
       <div>
         <Link to="/home">Get Cooking!</Link>
         <Link to="/">LandingPage</Link>
-        {/* <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link> */}
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Sign Up</Link>
       </div>
     </div>
   )
