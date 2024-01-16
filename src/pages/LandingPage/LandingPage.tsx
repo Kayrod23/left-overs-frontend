@@ -10,16 +10,18 @@ function LandingPage() {
 
   return (
     <div className="landingPage">
-      <button onClick={() => loginWithRedirect()}>Log In</button>
-      <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      {isAuthenticated ? (
+      <div>
+        <button> Get Cooking!</button>
+        <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
         Log Out
       </button>
-      {isAuthenticated && (
-      <div>
-        <img src={user.picture} alt={user.name} />
+        {/* <img src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
-        <p>{user.email}</p>
+        <p>{user.email}</p> */}
       </div>
+    ) : (
+      <button onClick={() => loginWithRedirect()}>Log In</button>
     )}
     </div>
   );
