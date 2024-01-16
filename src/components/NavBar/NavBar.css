@@ -1,16 +1,60 @@
 .navbar {
-    background-color: red;
+    background-color: green;
     position: fixed;
     z-index: 2;
     width: 100%;
-    height: 12%;
+    height: 100px;
     flex: 1;
     align-items: center;
     text-align: center;
     justify-content: center;
 }
 
-img {
-    height: 50px;
-    width: 50px;
+.navbar__container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0 20px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.navbar__logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.navbar-logo__img {
+    height: 75px;
+    width: 75px;
+}
+
+.navbar-logo__name {
+    color: white;
+    font-size: xx-large;
+    font-family:sans-serif;
+}
+
+.navbar__menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.navbar-menu__recipe {
+    font-size: x-large;
+    text-decoration: none;
+}
+
+.navbar-menu__home {
+    font-size: x-large;
+    text-decoration: none;
+}
+
+.navbar-menu__img {
+    border-radius: 50px;
+    width: 75px;
+    height: 75px;
 }
