@@ -40,21 +40,43 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 50px;
+    gap: 20px;
 }
 
 .navbar-menu__recipe {
     font-size: x-large;
     text-decoration: none;
+    color: white;
 }
 
 .navbar-menu__home {
     font-size: x-large;
     text-decoration: none;
+    color: white;
+}
+
+.navbar-menu__logout {
+    font-size: x-large;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-menu__recipe:hover, .navbar-menu__home:hover, .navbar-menu__logout:hover {
+    color: rgb(220, 220, 220);
+}
+
+.navbar-menu__recipe:active, .navbar-menu__home:active, .navbar-menu__logout:active {
+    color: rgb(150, 150, 150);
 }
 
 .navbar-menu__img {
     border-radius: 50px;
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
 }
+
+/* .navbar-menu__img:hover {
+    border-radius: 50px;
+} */
+
