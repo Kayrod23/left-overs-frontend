@@ -91,7 +91,9 @@ function Home () {
       <div>
          <form className="fileForm" onSubmit={takeImageInputAndSendToOpenAI}>
           {/* <label htmlFor='file'>Image</label> */}
+          <img src="/icons8.png"/>
           <input id="file" type="file" accept="image/*" name="image"/>
+          <p>What do you have left over?</p>
           <button type="submit">Submit</button>
         </form>
         { loading ? 
@@ -104,7 +106,7 @@ function Home () {
               <p className="recipeSteps">{recipeSteps}</p>
             </div>
             :
-            <div>What do you have left over?</div>
+            null
           }
         </div>
         }

@@ -16,5 +16,35 @@
 }
 
 .fileForm {
-    margin: 100px;
+    margin-top: 150px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 3px dashed rgb(210, 227, 244);
+    padding: 1.5rem;
+    cursor: pointer;
+}
+
+.fileForm input{
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fileForm img {
+    width: 90px;
+    height: 90px;
+}
+
+.file {
+    color: red;
 }
