@@ -1,4 +1,4 @@
-.container {
+.home {
     display: flex;
     flex: 1;
     background-color: white;
@@ -7,15 +7,7 @@
     justify-content: center;
 }
 
-.recipeName {
-    margin-top: 10%;
-}
-
-.recipeSteps {
-    font-size: 20;
-}
-
-.fileForm {
+.home__fileform {
     margin-top: 150px;
     /* width: 500px; */
     display: flex;
@@ -27,7 +19,7 @@
     cursor: pointer;
 }
 
-.fileForm input{
+.home-fileform__input{
     display: block;
     height: 100%;
     width: 100%;
@@ -40,11 +32,30 @@
     cursor: pointer;
 }
 
-.fileForm img {
+.home-fileform__img{
     width: 90px;
     height: 90px;
 }
 
-.file {
+.home-fileform__text {
     color: red;
+}
+
+.home-fileform__submit {
+    color: blue;
+}
+
+/*
+*/
+
+.response {
+    border: 1px solid black;
+}
+
+.response__recipeName {
+    margin-top: 10%;
+}
+
+.response__recipeSteps {
+    font-size: 20;
 }

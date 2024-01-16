@@ -86,24 +86,24 @@ function Home () {
   console.log("state",message);
   console.log("state", recipeSteps);
   return (
-    <div className="container">
+    <div className="home">
       {/* <NavBar/> */}
-      <div>
-         <form className="fileForm" onSubmit={takeImageInputAndSendToOpenAI}>
+      <div className="home__container">
+         <form className="home__fileform" onSubmit={takeImageInputAndSendToOpenAI}>
           {/* <label htmlFor='file'>Image</label> */}
-          <img src="/icons8.png"/>
-          <input id="file" type="file" accept="image/*" name="image"/>
-          <p>What do you have left over?</p>
-          <button type="submit">Submit</button>
+          <img className="home-fileform__img" src="/icons8.png"/>
+          <input className="home-fileform__input" id="file" type="file" accept="image/*" name="image"/>
+          <p className="home-fileform__text" >What do you have left over?</p>
+          <button className="home-fileform__submit" type="submit">Submit</button>
         </form>
         { loading ? 
         <Loading/>
         :
         <div>
           { message && recipeSteps ? 
-            <div>
-              <h2 className="recipeName">{message}</h2>
-              <p className="recipeSteps">{recipeSteps}</p>
+            <div className="response">
+              <h2 className="response__recipeName">{message}</h2>
+              <p className="response__recipeSteps">{recipeSteps}</p>
             </div>
             :
             null

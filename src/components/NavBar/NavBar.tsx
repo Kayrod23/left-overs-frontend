@@ -18,7 +18,7 @@ function NavBar() {
             <div className="navbar__menu">
               {/* <Link className="navbar-menu__landingpage" to="/">LandingPage</Link> */}
               <Link className="navbar-menu__recipe" to="/recipes">Recipes</Link>
-              <Link className="navbar-menu__home" to="/">Get Cooking!</Link>
+              <Link className="navbar-menu__home" to="/">Get Cooking</Link>
               <p className="navbar-menu__logout" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                 Log Out
               </p>
@@ -31,7 +31,7 @@ function NavBar() {
               <img className="navbar-logo__img" src={logo} alt="ai_chatgpt_logo"/>
               <p className="navbar-logo__name">LEFTOVERS</p>
             </div>
-            <button className="" onClick={() => loginWithRedirect()}>Log In</button>
+            <button className="navbar__login" onClick={() => loginWithRedirect()}>Log In</button>
           </div>
         )}
       </div>

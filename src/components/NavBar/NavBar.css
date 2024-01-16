@@ -36,6 +36,18 @@
     font-family:sans-serif;
 }
 
+/*
+not logged in
+*/
+
+.navbar__login {
+    text: green;
+}
+
+/*
+logged in
+*/
+
 .navbar__menu {
     display: flex;
     align-items: center;
