@@ -14,8 +14,8 @@ type StringState = string | null;
 
 function Home () {
   const [loading, setLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<StringState>("");
-  const [recipeSteps, setRecipeSteps] = useState<StringState>("");
+  const [recipe, setRecipe] = useState<StringState>("The Cat Rat");
+  const [recipeSteps, setRecipeSteps] = useState<StringState>("frist get the cat to eat the rat then get the cat to find the rats hat to pay respect to the rat. after all that we can start cooing the rat. add salt and pepper nothing else, cook on low heat for 1 min and check to make sure it is blue rare");
 
   // takeImageInput takes an image file from your computer and send it to imgbb to be hosted so the image now has a url linked to it.
   // this allows it to be sent to chatgpt and analyzed to create a recipe.
@@ -63,7 +63,7 @@ function Home () {
             },
           ],
         });
-        setMessage(response.choices[0].message.content);
+        setRecipe(response.choices[0].message.content);
         getRecipeFromChatGPT(response.choices[0].message.content);
         // send this to the back end along with the steps when completed
       }
@@ -83,7 +83,7 @@ function Home () {
         setLoading(false);
       }
 
-  console.log("state",message);
+  console.log("state",recipe);
   console.log("state", recipeSteps);
   return (
     <div className="home">
@@ -100,9 +100,9 @@ function Home () {
         <Loading/>
         :
         <div>
-          { message && recipeSteps ? 
+          { recipe && recipeSteps ? 
             <div className="response">
-              <h2 className="response__recipeName">{message}</h2>
+              <h2 className="response__recipeName">{recipe}</h2>
               <p className="response__recipeSteps">{recipeSteps}</p>
             </div>
             :

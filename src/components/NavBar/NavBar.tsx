@@ -25,7 +25,7 @@ function NavBar() {
               <img className="navbar-menu__img"src={user.picture} alt={user.name}/>
             </div>
           </div>
-        ): (
+        ) : (
           <div className="navbar__container">
             <div className="navbar__logo">
               <img className="navbar-logo__img" src={logo} alt="ai_chatgpt_logo"/>
