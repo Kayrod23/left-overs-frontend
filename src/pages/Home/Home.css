@@ -19,6 +19,7 @@
     align-items: center;
     text-align: center;
     border: 3px dashed rgb(210, 225, 245);
+    transition: 0.3s;
 }
 
 .home-fileform__input{
@@ -45,13 +46,14 @@
 .home-fileform__submit {
     font-size: large;
     margin: 20px;
+    width: 100px;
 }
 
 /*
 */
 
 .response {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 300px;
 }
 
@@ -71,8 +73,9 @@
         width: 60%;
     }
     .home__fileform {
-        margin-top: 150px 75px;
+        margin-top: 150px;
         width: 100%;
+        transition: 0.3s;
     }
     .home-fileform__submit {
         margin: 25px 0px 40px 0px;
@@ -80,11 +83,14 @@
     .home-fileform__img {
         margin: 40px 0px 0px 0px;
     }
-
+    .home-fileform__input {
+        width: 60%;
+    }
     /*
     */
 
     .response { 
         width: 100%;
+        transition: 0.3s;
     }
   }

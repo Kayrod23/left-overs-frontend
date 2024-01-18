@@ -1,38 +1,41 @@
 .navbar {
-    background-color: green;
     position: fixed;
     z-index: 2;
     width: 100%;
-    height: 100px;
+    height: 75px;
     flex: 1;
     align-items: center;
     text-align: center;
     justify-content: center;
+    border-bottom: 2px solid black;
+    transition: 0.3s;
 }
 
 .navbar__container {
     display: flex;
     align-items: center;
     text-align: center;
-    margin: 0 20px;
+    /* margin: 0 5px; */
     justify-content: space-between;
     gap: 20px;
+    max-height: 77px;
+    transition: 0.3s;
 }
 
 .navbar__logo {
     display: flex;
     align-items: center;
     gap: 5px;
+    margin: 10px 5px;
 }
 
 .navbar-logo__img {
-    height: 75px;
-    width: 75px;
+    height: 50px;
+    width: 50px;
 }
 
 .navbar-logo__name {
-    color: white;
-    font-size: xx-large;
+    font-size: large;
     font-family:sans-serif;
 }
 
@@ -43,7 +46,7 @@ not logged in
 .navbar__login {
     background-color: rgba(255, 255, 255, 1);
     height: 30px;
-    width: 80px;
+    width: 120px;
     font-size: large;
 }
 
@@ -56,33 +59,38 @@ not logged in
 logged in
 */
 
+.navbar__hamburger {
+
+}
+
 .navbar__menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    visibility: hidden;
 }
 
 .navbar-menu__recipe {
     font-size: x-large;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .navbar-menu__home {
     font-size: x-large;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .navbar-menu__logout {
     font-size: x-large;
     text-decoration: none;
-    color: white;
+    /* color: white; */
 }
 
 .navbar-menu__recipe:hover, .navbar-menu__home:hover, .navbar-menu__logout:hover {
-    color: rgb(220, 220, 220);
+    color: white;
 }
 
 .navbar-menu__recipe:active, .navbar-menu__home:active, .navbar-menu__logout:active {
@@ -91,12 +99,37 @@ logged in
 
 .navbar-menu__img {
     border-radius: 50px;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border: 1px solid black;
 }
 
-/* .navbar-menu__img:hover {
-    border-radius: 50px;
-} */
+.navbar-menu__img:hover {
+    border: 1px solid white;
+}
 
+@media  screen and (min-width: 750px) {
+    .navbar {
+        height: 100px;
+    }
+    .navbar__container {
+        max-height: 102px;
+        /* margin: 0 20px; */
+    }
+
+    .navbar__logo {
+        margin: 10px;
+    }
+    .navbar-logo__img {
+        height: 75px;
+        width: 75px;
+    }
+    .navbar-logo__name {
+        font-size: xx-large;
+    }
+/*
+*/
+    .navbar__menu {
+        visibility: visible;
+    }
+}
