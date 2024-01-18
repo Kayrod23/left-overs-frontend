@@ -31,7 +31,7 @@ function NavBar() {
               <img className="navbar-logo__img" src={logo} alt="ai_chatgpt_logo"/>
               <p className="navbar-logo__name">LEFTOVERS</p>
             </div>
-            <button className="navbar__login" onClick={() => loginWithRedirect()}>Log In</button>
+            <button className="navbar__login" onClick={() => loginWithRedirect()}>Login</button>
           </div>
         )}
       </div>

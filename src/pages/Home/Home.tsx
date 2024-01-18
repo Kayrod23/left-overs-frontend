@@ -15,7 +15,7 @@ type StringState = string | null;
 function Home () {
   const [loading, setLoading] = useState<boolean>(false);
   const [recipe, setRecipe] = useState<StringState>("The Cat Rat");
-  const [recipeSteps, setRecipeSteps] = useState<StringState>("frist get the cat to eat the rat then get the cat to find the rats hat to pay respect to the rat. after all that we can start cooing the rat. add salt and pepper nothing else, cook on low heat for 1 min and check to make sure it is blue rare");
+  const [recipeSteps, setRecipeSteps] = useState<StringState>("first get the cat to beat the rat then get the cat to find the rats hat to pay respect to the rat. after all that we can start cooking the rat. add salt and pepper nothing else, cook on low heat for 1 min and check to make sure it is blue rare. use the tail as a hair band but not for too long as this can cause some form of self harm");
 
   // takeImageInput takes an image file from your computer and send it to imgbb to be hosted so the image now has a url linked to it.
   // this allows it to be sent to chatgpt and analyzed to create a recipe.
