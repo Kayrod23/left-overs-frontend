@@ -22,7 +22,7 @@ function NavBar() {
               <p className="navbar-menu__logout" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
                 Log Out
               </p>
-              <img className="navbar-menu__img"src={user.picture} alt={user.name}/>
+              <img className="navbar-menu__img" src={user?.picture} alt={user?.name}/>
             </div>
           </div>
         ) : (

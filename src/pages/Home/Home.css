@@ -9,10 +9,15 @@
     text-align: center;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 50px;
 }
 
+/*
+form
+*/
+
 .home__fileform {
-    margin-top: 150px;
+    margin-top: 50px;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -50,6 +55,7 @@
 }
 
 /*
+response
 */
 
 .response {
@@ -62,7 +68,11 @@
 }
 
 .response__recipeSteps {
-    font-size: 20;
+    font-size: 20px;
+}
+
+.response__save {
+    font-size: large;
 }
 
 /*
@@ -73,7 +83,7 @@
         width: 60%;
     }
     .home__fileform {
-        margin-top: 150px;
+        margin-top: 50px;
         width: 100%;
         transition: 0.3s;
     }
