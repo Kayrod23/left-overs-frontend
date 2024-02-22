@@ -27,31 +27,36 @@ function Home () {
 
   const { isAuthenticated, user } = useAuth0();
 
-  function getUserIdFromEmail () {
-    axios.get(`${VITE_BACKEND_API}/users/${user?.email}`)
-    .then((response) => {
-      setUserId(response.data.id);
-    })
-    .catch((error) => {
-      console.log(error);
-      axios.post(`${VITE_BACKEND_API}/users`, {
-        name: user?.name,
-        email: user?.email,
-        picture: user?.picture,
-      })
-      getUserIdFromEmail();
-    })
-  }
   console.log("userId:", userId);
 
     useEffect(() => {
-      if (isAuthenticated) {
-        getUserIdFromEmail();
-        setDisabled(false)
-      } else {
-        setDisabled(true);
+      const getUserInfo = async () => {
+        try {
+          const response = await axios.get(`${VITE_BACKEND_API}/users/${user?.email}`);
+          setUserId(response.data.id);
+          setDisabled(false);
+        } catch (error) {
+          console.log("User not found.");
+          try {
+            const response = await axios.post(`${VITE_BACKEND_API}/users`, {
+              name: user?.name,
+              email: user?.email,
+              picture: user?.picture,
+            })
+            setUserId(response.data.id);
+            setDisabled(false);
+          } catch (error) {
+            console.error("Failed to create user:", error);
+          }
+        }
       }
-    }, [isAuthenticated])
+
+      if (!isAuthenticated) {
+        setDisabled(true);
+      } else {
+        getUserInfo();
+      }
+    }, [isAuthenticated, user])
 
   // takeImageInput takes an image file from your computer and send it to imgbb to be hosted so the image now has a url linked to it.
   // this allows it to be sent to chatgpt and analyzed to create a recipe.
@@ -103,31 +108,40 @@ function Home () {
       ],
     });
     setRecipe(response.choices[0].message.content);
-    getRecipeFromChatGPTImage(response.choices[0].message.content);
+    getRecipeFromChatGPT(response.choices[0].message.content);
   }
 
 // sends the recipe generated from chatGPT and send it back to then get a step by step guide on how to make the recipe.
-  async function getRecipeFromChatGPTImage(recipe: string | null ) {
-    const recipeSteps = await generateRecipe(recipe);
-  //   for await (const chunk of recipeSteps) {
-  //     setRecipeSteps(chunk.choices[0]?.delta?.content || "");
-  // }
-    setRecipeSteps(recipeSteps);
-    setLoading(false);
-  }
+  async function getRecipeFromChatGPT(
+    recipe: string | null, 
+    isSearch: boolean = false, 
+    event?: React.FormEvent 
+    ) {
+    setLoading(true);
+    let recipeSteps: string | null;
 
-  async function getRecipeFromChatGPTSearch(event: React.FormEvent) {
-    event.preventDefault();
-    const formElement = event.target as HTMLFormElement; 
-    const form = new FormData(formElement);
-    const recipeName = form.get("recipeName") as string;
-    setRecipe(recipeName);
-    const recipeSteps = await generateRecipe(recipeName);
+    try {
+      if (isSearch && event) {
+        event.preventDefault();
+        const formElement = event.target as HTMLFormElement;
+        const form = new FormData(formElement);
+        const recipeName = form.get("recipeName") as string;
+        recipeSteps = await generateRecipe(recipeName);
+      } else if (recipe) {
+        recipeSteps = await generateRecipe(recipe);
+      } else {
+        throw new Error('No recipe provided');
+      }
+      setRecipeSteps(recipeSteps);
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+    } finally {
+      setLoading(false);
+    }
+
   //   for await (const chunk of recipeSteps) {
   //     setRecipeSteps(chunk.choices[0]?.delta?.content || "");
   // }
-    setRecipeSteps(recipeSteps);
-    setLoading(false);
   }
 
   // saves both recipe name and recipe steps into and sends it to the backend
@@ -171,7 +185,7 @@ function Home () {
             :
             <div className="search">
               <p className="search__title">Have a Recipe in mind?</p>
-              <form className="search__form" onSubmit={getRecipeFromChatGPTSearch}>
+              <form className="search__form" onSubmit={(event)=>getRecipeFromChatGPT(null, true, event)}>
                 <input className="search-form__input" name="recipeName" type="text"/>
               </form>
             </div>
