@@ -70,6 +70,7 @@ function Home () {
     console.log("Loading");
     const formElement = event.target as HTMLFormElement; 
     const form = new FormData(formElement);
+    
     fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${IMGBB_API}`, {
       method: 'POST',
       body: form,
@@ -85,6 +86,7 @@ function Home () {
       })
       .catch(error => {
         console.error('Error uploading image:', error);
+        setLoading(false);
       });
     }
 
