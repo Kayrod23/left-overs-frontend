@@ -9,6 +9,8 @@ const IMGBB_API = import.meta.env.VITE_IMGBB_API;
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const VITE_BACKEND_API = import.meta.env.VITE_BACKEND_API;
 
+
+
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
@@ -26,37 +28,45 @@ function Home () {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const { isAuthenticated, user } = useAuth0();
-
   console.log("userId:", userId);
 
-    useEffect(() => {
-      const getUserInfo = async () => {
+  useEffect(() => {
+    const recipeStepsP = document.getElementById("recipeSteps");
+    if (recipeStepsP instanceof HTMLElement) {
+      recipeStepsP.innerHTML = recipeSteps ?? '';
+    }
+  }, [recipeSteps])
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const response = await axios.get(
+          `${VITE_BACKEND_API}/users/${user?.email}`
+        );
+        setUserId(response.data.id);
+        setDisabled(false);
+      } catch (error) {
+        console.log("User not found.");
         try {
-          const response = await axios.get(`${VITE_BACKEND_API}/users/${user?.email}`);
+          const response = await axios.post(`${VITE_BACKEND_API}/users`, {
+            name: user?.name,
+            email: user?.email,
+            picture: user?.picture,
+          });
           setUserId(response.data.id);
           setDisabled(false);
         } catch (error) {
-          console.log("User not found.");
-          try {
-            const response = await axios.post(`${VITE_BACKEND_API}/users`, {
-              name: user?.name,
-              email: user?.email,
-              picture: user?.picture,
-            })
-            setUserId(response.data.id);
-            setDisabled(false);
-          } catch (error) {
-            console.error("Failed to create user:", error);
-          }
+          console.error("Failed to create user:", error);
         }
       }
+    };
 
-      if (!isAuthenticated) {
-        setDisabled(true);
-      } else {
-        getUserInfo();
-      }
-    }, [isAuthenticated, user])
+    if (!isAuthenticated) {
+      setDisabled(true);
+    } else {
+      getUserInfo();
+    }
+  }, [isAuthenticated, user]);
 
   // takeImageInput takes an image file from your computer and send it to imgbb to be hosted so the image now has a url linked to it.
   // this allows it to be sent to chatgpt and analyzed to create a recipe.
@@ -68,27 +78,27 @@ function Home () {
     }
     setLoading(true);
     console.log("Loading");
-    const formElement = event.target as HTMLFormElement; 
+    const formElement = event.target as HTMLFormElement;
     const form = new FormData(formElement);
-    
+
     fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${IMGBB_API}`, {
-      method: 'POST',
+      method: "POST",
       body: form,
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         showChatGPTUserImage(data.data.url);
       })
-      .catch(error => {
-        console.error('Error uploading image:', error);
+      .catch((error) => {
+        console.error("Error uploading image:", error);
         setLoading(false);
       });
-    }
+  }
 
 //run showChatGPTUserImage() when url is given from imgbb
   async function showChatGPTUserImage (imageUrl: string) {
@@ -128,12 +138,14 @@ function Home () {
         const formElement = event.target as HTMLFormElement;
         const form = new FormData(formElement);
         const recipeName = form.get("recipeName") as string;
+        setRecipe(recipeName);
         recipeSteps = await generateRecipe(recipeName);
       } else if (recipe) {
         recipeSteps = await generateRecipe(recipe);
       } else {
         throw new Error('No recipe provided');
       }
+      recipeSteps = recipeSteps?.replace(/\n/g, "<br/>") || null
       setRecipeSteps(recipeSteps);
     } catch (error) {
       console.error('Error fetching recipe:', error);
@@ -181,7 +193,7 @@ function Home () {
           { recipe && recipeSteps ? 
             <div className="response">
               <h2 className="response__recipeName">{recipe}</h2>
-              <p className="response__recipeSteps">{recipeSteps}</p>
+              <p id="recipeSteps" className="response__recipeSteps"></p>
               <button className="response__save" onClick={saveResponse}>Save Recipe</button>
             </div>
             :
