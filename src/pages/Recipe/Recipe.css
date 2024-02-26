@@ -1,0 +1,23 @@
+.response {
+    border: 3px solid black;
+}
+
+.response__recipeName {
+    /* margin-top: 10%; */
+}
+
+.response__recipeSteps {
+    /* font-size: 20px;
+    text-align: center; */
+}
+
+.response__save {
+    font-size: large;
+}
+
+@media screen and (min-width: 750px) {
+    .response { 
+        width: 100%;
+        transition: 0.3s;
+    }
+  }

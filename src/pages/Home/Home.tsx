@@ -5,37 +5,47 @@ import axios from "axios"
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../../components/Loading.js";
 import generateRecipe from "../../components/helperFunctions/generateRecipe.tsx"
+import { useNavigate } from "react-router-dom";
 const IMGBB_API = import.meta.env.VITE_IMGBB_API;
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const VITE_BACKEND_API = import.meta.env.VITE_BACKEND_API;
-
-
 
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
-//defining the type of state as it has to be null and string
-type StringState = string | null;
-type NumberState = number | null;
 
+//sets the props for the props of home
+interface HomeProps {
+  recipe: string | null;
+  setRecipe: React.Dispatch<React.SetStateAction<string | null>>;
+  recipeSteps: string | null;
+  setRecipeSteps: React.Dispatch<React.SetStateAction<string | null>>;
+  userId: number | null;
+  setUserId: React.Dispatch<React.SetStateAction<number | null>>;
+}
 
-function Home () {
+function Home({
+  recipe,
+  setRecipe,
+  recipeSteps,
+  setRecipeSteps,
+  userId,
+  setUserId,
+}: HomeProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [recipe, setRecipe] = useState<StringState>("");
-  const [recipeSteps, setRecipeSteps] = useState<StringState>("");
-  const [userId, setUserId] = useState<NumberState>(0);
   const [disabled, setDisabled] = useState<boolean>(true);
 
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
   console.log("userId:", userId);
 
-  useEffect(() => {
-    const recipeStepsP = document.getElementById("recipeSteps");
-    if (recipeStepsP instanceof HTMLElement) {
-      recipeStepsP.innerHTML = recipeSteps ?? '';
-    }
-  }, [recipeSteps])
+  // useEffect(() => {
+  //   const recipeStepsP = document.getElementById("recipeSteps");
+  //   if (recipeStepsP instanceof HTMLElement) {
+  //     recipeStepsP.innerHTML = recipeSteps ?? '';
+  //   }
+  // }, [recipeSteps])
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -99,9 +109,9 @@ function Home () {
         setLoading(false);
       });
   }
-
-//run showChatGPTUserImage() when url is given from imgbb
-  async function showChatGPTUserImage (imageUrl: string) {
+  // console.log(recipeSteps)
+  //run showChatGPTUserImage() when url is given from imgbb
+  async function showChatGPTUserImage(imageUrl: string) {
     const response = await openai.chat.completions.create({
       model: "gpt-4-vision-preview",
       messages: [
@@ -112,7 +122,7 @@ function Home () {
             {
               type: "image_url",
               image_url: {
-                "url": `${imageUrl}`,
+                url: `${imageUrl}`,
               },
             },
           ],
@@ -123,12 +133,12 @@ function Home () {
     getRecipeFromChatGPT(response.choices[0].message.content);
   }
 
-// sends the recipe generated from chatGPT and send it back to then get a step by step guide on how to make the recipe.
+  // sends the recipe generated from chatGPT and send it back to then get a step by step guide on how to make the recipe.
   async function getRecipeFromChatGPT(
-    recipe: string | null, 
-    isSearch: boolean = false, 
-    event?: React.FormEvent 
-    ) {
+    recipe: string | null,
+    isSearch: boolean = false,
+    event?: React.FormEvent
+  ) {
     setLoading(true);
     let recipeSteps: string | null;
 
@@ -143,54 +153,80 @@ function Home () {
       } else if (recipe) {
         recipeSteps = await generateRecipe(recipe);
       } else {
-        throw new Error('No recipe provided');
+        throw new Error("No recipe provided");
       }
-      recipeSteps = recipeSteps?.replace(/\n/g, "<br/>") || null
+      recipeSteps = recipeSteps?.replace(/\n/g, "<br/>") || null;
       setRecipeSteps(recipeSteps);
     } catch (error) {
-      console.error('Error fetching recipe:', error);
+      console.error("Error fetching recipe:", error);
     } finally {
       setLoading(false);
+      navigate("/recipe");
     }
 
-  //   for await (const chunk of recipeSteps) {
-  //     setRecipeSteps(chunk.choices[0]?.delta?.content || "");
-  // }
+    //   for await (const chunk of recipeSteps) {
+    //     setRecipeSteps(chunk.choices[0]?.delta?.content || "");
+    // }
   }
 
   // saves both recipe name and recipe steps into and sends it to the backend
-  function saveResponse () {
-    console.log('testing', recipe, recipeSteps);
-    axios.post(`${VITE_BACKEND_API}/recipes`, {
-      recipeName: recipe,
-      recipeSteps: recipeSteps,
-      userId: userId
-    })
-    .then(() => {
-      console.log("sent to the backend!")
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
+  // function saveResponse () {
+  //   console.log('testing', recipe, recipeSteps);
+  //   axios.post(`${VITE_BACKEND_API}/recipes`, {
+  //     recipeName: recipe,
+  //     recipeSteps: recipeSteps,
+  //     userId: userId
+  //   })
+  //   .then(() => {
+  //     console.log("sent to the backend!")
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // }
 
-  // console.log("state",recipe);
-  // console.log("state", recipeSteps);
+  console.log("state",recipe);
+  console.log("state", recipeSteps);
   return (
     <div className="home">
       {/* <NavBar/> */}
       <div className="home__container">
-         <form className="home__fileform" onSubmit={takeImageInputAndSendToOpenAI}>
-          <img className="home-fileform__img" src="/icons8.png"/>
-          <input className="home-fileform__input" id="file" type="file" accept="image/*" name="image" disabled={disabled}/>
-          <p className="home-fileform__text" >What do you have left over?</p>
-          <button className="home-fileform__submit" type="submit">Submit</button>
-        </form>
-        { loading ? 
-        <Loading/>
-        :
-        <div>
-          { recipe && recipeSteps ? 
+        {loading ? (
+          <Loading />
+        ) : (
+          <div>
+            <form
+              className="home__fileform"
+              onSubmit={takeImageInputAndSendToOpenAI}
+            >
+              <img className="home-fileform__img" src="/icons8.png" />
+              <input
+                className="home-fileform__input"
+                id="file"
+                type="file"
+                accept="image/*"
+                name="image"
+                disabled={disabled}
+              />
+              <p className="home-fileform__text">What do you have left over?</p>
+              <button className="home-fileform__submit" type="submit">
+                Submit
+              </button>
+            </form>
+            <div className="search">
+              <p className="search__title">Have a Recipe in mind?</p>
+              <form
+                className="search__form"
+                onSubmit={(event) => getRecipeFromChatGPT(null, true, event)}
+              >
+                <input
+                  className="search-form__input"
+                  name="recipeName"
+                  type="text"
+                />
+              </form>
+            </div>
+            {/* { recipe && recipeSteps ? 
             <div className="response">
               <h2 className="response__recipeName">{recipe}</h2>
               <p id="recipeSteps" className="response__recipeSteps"></p>
@@ -203,12 +239,12 @@ function Home () {
                 <input className="search-form__input" name="recipeName" type="text"/>
               </form>
             </div>
-          }
-        </div>
-        }
+          } */}
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
 export default Home;
