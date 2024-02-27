@@ -205,6 +205,7 @@ function Home({
                 id="file"
                 type="file"
                 accept="image/*"
+                capture
                 name="image"
                 disabled={disabled}
               />

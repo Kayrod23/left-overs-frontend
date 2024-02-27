@@ -33,9 +33,9 @@ form
     height: 150px;
     width: 250px;
     align-items: center;
-    /* position: absolute; */
-    /* opacity: 0; */
-    /* cursor: pointer; */
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .home-fileform__img {
