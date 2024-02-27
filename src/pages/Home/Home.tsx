@@ -76,7 +76,7 @@ function Home({
     } else {
       getUserInfo();
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, setUserId]);
 
   // takeImageInput takes an image file from your computer and send it to imgbb to be hosted so the image now has a url linked to it.
   // this allows it to be sent to chatgpt and analyzed to create a recipe.

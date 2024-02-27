@@ -65,9 +65,7 @@ logged in
 } */
 
 .navbar__menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+    display: none;
 }
 
 .navbar-menu__recipe {
@@ -114,6 +112,8 @@ logged in
     visibility: visible;
 }
 
+/* Laptop mode below*/
+
 @media  screen and (min-width: 750px) {
     .navbar {
         height: 100px;
@@ -135,13 +135,15 @@ logged in
 /*
 */
     .navbar__menu {
-        visibility: visible;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
     .navbar-menu__img {
         margin-right: 5px;
     }
     .navbar-menu__ham {
-        visibility: hidden;
+        display: none;
     }
 }
 
