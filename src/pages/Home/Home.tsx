@@ -15,6 +15,8 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
+//test 
+
 //sets the props for the props of home
 interface HomeProps {
   recipe: string | null;
