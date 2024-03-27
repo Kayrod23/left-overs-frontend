@@ -15,7 +15,7 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-//test 
+//test for https
 
 //sets the props for the props of home
 interface HomeProps {
