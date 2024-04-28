@@ -209,7 +209,7 @@ function Home({
                 accept="image/*"
                 capture
                 name="image"
-                disabled={disabled}
+                // disabled={disabled}
               />
               <p className="home-fileform__text">What do you have left over?</p>
               <button className="home-fileform__submit" type="submit">
